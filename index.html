@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="lang-buttons">
+	  <button class="lang-btn active" data-lang="en">EN</button>
+	  <button class="lang-btn" data-lang="ru">RU</button>
+	</div>
+    
+    <h1 data-i18n="title">Tic-Tac-Toe</h1>
+    
+    <div class="menu">
+      <button id="playBtn" data-i18n="play">Play</button>
+      <button id="settingsBtn" data-i18n="settings">Settings</button>
+    </div>
+    
+    <div class="settings hidden">
+      <h2 data-i18n="settings">Settings</h2>
+      <div>
+        <label data-i18n="chooseSymbol">Choose your symbol:</label>
+        <select id="playerSymbol">
+          <option value="X">X</option>
+          <option value="O">O</option>
+        </select>
+      </div>
+      <div>
+        <label data-i18n="chooseDifficulty">Choose difficulty:</label>
+        <select id="difficulty">
+          <option value="easy" data-i18n="easy">Easy</option>
+          <option value="medium" data-i18n="medium">Medium</option>
+        </select>
+      </div>
+      <button id="backBtn" data-i18n="back">Back</button>
+      <button id="startGameBtn" data-i18n="startGame">Start Game</button>
+    </div>
+    
+    <div class="game hidden">
+      <div class="status" data-i18n="yourTurn">Your turn (X)</div>
+      <div class="board" id="board"></div>
+      <button id="mainMenuBtn" data-i18n="mainMenu">Main Menu</button>
+    </div>
+    
+    <div class="modal hidden" id="modal">
+      <div class="modal-content">
+        <h2 id="modalTitle" data-i18n="playerWins">You win!</h2>
+        <button id="playAgainBtn" data-i18n="playAgain">Play Again</button>
+        <button id="modalMenuBtn" data-i18n="mainMenu">Main Menu</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
