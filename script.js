@@ -1,4 +1,4 @@
-// Translations
+// Перевод
 const translations = {
   en: {
     title: "Tic-Tac-Toe",
@@ -38,7 +38,6 @@ const translations = {
   }
 };
 
-// Game state
 let board = ['', '', '', '', '', '', '', '', ''];
 let currentPlayer = 'X';
 let gameActive = false;
@@ -47,7 +46,6 @@ let aiSymbol = 'O';
 let difficulty = 'easy';
 let currentLang = 'en';
 
-// DOM elements
 const menu = document.querySelector('.menu');
 const settings = document.querySelector('.settings');
 const game = document.querySelector('.game');
@@ -57,12 +55,12 @@ const modal = document.getElementById('modal');
 const modalTitle = document.getElementById('modalTitle');
 const langButtons = document.querySelectorAll('.lang-btn');
 
-// Initialize the game
+// Инициализация игры
 createBoard();
 updateTranslations();
 setActiveLangButton();
 
-// Language switcher
+// Выбор языка
 langButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     currentLang = btn.dataset.lang;
@@ -71,7 +69,6 @@ langButtons.forEach(btn => {
   });
 });
 
-// Set active language button style
 function setActiveLangButton() {
   document.querySelectorAll('.lang-btn').forEach(btn => {
     if (btn.dataset.lang === currentLang) {
@@ -82,14 +79,14 @@ function setActiveLangButton() {
   });
 }
 
-// Update all translations
+// Обновить весь перевод
 function updateTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     el.textContent = translations[currentLang][key];
   });
   
-  // Update select options
+  // Обновить язык для настроек сложности
   if (currentLang === 'ru') {
     document.getElementById('difficulty').options[0].text = 'Легкая';
     document.getElementById('difficulty').options[1].text = 'Средняя';
@@ -98,13 +95,12 @@ function updateTranslations() {
     document.getElementById('difficulty').options[1].text = 'Medium';
   }
   
-  // Update status if game is active
+  // Обновить статус, если игра активна
   if (gameActive) {
     updateStatus();
   }
 }
 
-// Buttons event listeners
 document.getElementById('playBtn').addEventListener('click', () => {
   startGame();
 });
@@ -146,7 +142,7 @@ document.getElementById('modalMenuBtn').addEventListener('click', () => {
   resetGame();
 });
 
-// Initialize the board
+// Инициализация поля
 function createBoard() {
   boardEl.innerHTML = '';
   for (let i = 0; i < 9; i++) {
@@ -159,7 +155,7 @@ function createBoard() {
   }
 }
 
-// Start a new game
+// Начать новую игру
 function startGame() {
   resetGame();
   gameActive = true;
@@ -171,11 +167,11 @@ function startGame() {
   // Если ИИ ходит первым (когда игрок выбрал 'O')
   if (playerSymbol === 'O' && currentPlayer === 'X') {
     currentPlayer = 'X'; // ИИ всегда 'X' когда игрок 'O'
-    setTimeout(makeAIMove, 500); // Добавляем небольшую задержку для визуального эффекта
+    setTimeout(makeAIMove, 500); // небольшая задержка для визуального эффекта
   }
 }
 
-// Reset the game state
+// Сбросить статус игры
 function resetGame() {
   board = ['', '', '', '', '', '', '', '', ''];
   gameActive = true;
@@ -189,14 +185,13 @@ function resetGame() {
   });
 }
 
-// Handle cell click
 function handleCellClick(e) {
   if (!gameActive) return;
   
   const index = e.target.getAttribute('data-index');
   const span = e.target.querySelector('span');
   
-  // If cell is empty and it's player's turn
+  // Если клетка пуста и это ход игрока
   if (board[index] === '' && currentPlayer === playerSymbol) {
     board[index] = playerSymbol;
     span.textContent = playerSymbol;
@@ -219,13 +214,11 @@ function handleCellClick(e) {
     
     currentPlayer = aiSymbol;
     updateStatus();
-    
-    // AI move after a short delay
     setTimeout(makeAIMove, 500);
   }
 }
 
-// AI makes a move
+// ИИ делает ход
 function makeAIMove() {
   if (!gameActive || currentPlayer !== aiSymbol) return;
   
@@ -269,12 +262,12 @@ function makeAIMove() {
   }
 }
 
-// Find a winning move for the given symbol
+// Нахождение выигрышного хода для данного символа
 function findWinningMove(symbol) {
   const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
-    [0, 4, 8], [2, 4, 6] // diagonals
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+    [0, 4, 8], [2, 4, 6] 
   ];
   
   for (let line of lines) {
@@ -287,18 +280,18 @@ function findWinningMove(symbol) {
   return null;
 }
 
-// Find a random empty cell
+// Найти случайную пустую клетку
 function findRandomMove() {
   const emptyCells = board.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
   return emptyCells[Math.floor(Math.random() * emptyCells.length)];
 }
 
-// Check if the current player has won
+// Проверка если текущий игрок победил
 function checkWin(symbol) {
   const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
-    [0, 4, 8], [2, 4, 6] // diagonals
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+    [0, 4, 8], [2, 4, 6] 
   ];
   
   const winningLine = lines.find(line => {
@@ -308,7 +301,6 @@ function checkWin(symbol) {
   });
   
   if (winningLine) {
-    // Highlight winning cells
     winningLine.forEach(index => {
       document.querySelector(`.board div[data-index="${index}"]`).classList.add('winning-cell');
     });
@@ -318,12 +310,12 @@ function checkWin(symbol) {
   return false;
 }
 
-// Check for a draw
+// Проверка на ничью
 function checkDraw() {
   return board.every(cell => cell !== '');
 }
 
-// End the game
+// Конец игры
 function endGame(winner) {
   gameActive = false;
   
@@ -338,7 +330,7 @@ function endGame(winner) {
   modal.classList.remove('hidden');
 }
 
-// Update status message
+// Обновить сообщение статуса
 function updateStatus() {
   if (currentPlayer === playerSymbol) {
     statusEl.setAttribute('data-i18n', 'yourTurn');
